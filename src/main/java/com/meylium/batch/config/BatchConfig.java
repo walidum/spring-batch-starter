@@ -3,7 +3,9 @@ package com.meylium.batch.config;
 import com.meylium.batch.listener.JobCompletionListener;
 import com.meylium.batch.step.Processor;
 import com.meylium.batch.step.Reader;
+import com.meylium.batch.step.Reader2;
 import com.meylium.batch.step.Writer;
+import com.meylium.batch.tasklet.FileDeletingTasklet;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
@@ -24,22 +26,57 @@ public class BatchConfig {
     }
 
     @Bean
-    public Job processJob() {
-        return jobBuilderFactory.get("processJob")
+    public Job Job1() {
+        return jobBuilderFactory.get("Job1")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener())
-                .flow(orderStep1())
+                .flow(Step1())
                 .end().build();
     }
 
     @Bean
-    public Step orderStep1() {
-        return stepBuilderFactory.get("orderStep1")
+    public Job Job2() {
+        return jobBuilderFactory.get("Job2")
+                .incrementer(new RunIdIncrementer())
+                .listener(listener())
+                .start(Step2())
+                .build();
+    }
+
+    @Bean
+    Job Job3() {
+        return this.jobBuilderFactory
+                .get("job3")
+                .incrementer(new RunIdIncrementer())
+                .start(Step3()).build();
+    }
+
+    @Bean
+    public Step Step1() {
+        return stepBuilderFactory.get("Step1")
                 .<String, String>chunk(1)
                 .reader(new Reader())
                 .processor(new Processor())
                 .writer(new Writer())
                 .build();
+    }
+
+    @Bean
+    public Step Step2() {
+        return stepBuilderFactory.get("Step2")
+                .<String, String>chunk(1)
+                .reader(new Reader2())
+                .processor(new Processor())
+                .writer(new Writer())
+                .build();
+    }
+
+
+    @Bean
+    Step Step3() {
+        return this.stepBuilderFactory
+                .get("Step3")
+                .tasklet(new FileDeletingTasklet()).build();
     }
 
     @Bean

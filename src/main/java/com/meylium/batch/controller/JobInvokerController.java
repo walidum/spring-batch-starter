@@ -13,13 +13,33 @@ public class JobInvokerController {
         this.jobService = jobService;
     }
 
-    @RequestMapping("/start")
-    public String start() {
+    @RequestMapping("/start1")
+    public String start1() {
         try {
-            jobService.startUpperCaseJob();
-            return "Job Started !";
+            jobService.startJob1();
+            return "Job 1 Started !";
         } catch (Exception e) {
-            return "Exeption during job starting !";
+            return "Exeption during job 1 starting !";
+        }
+    }
+
+    @RequestMapping("/start2")
+    public String start2() {
+        try {
+            jobService.startJob2();
+            return "Job 2 Started !";
+        } catch (Exception e) {
+            return "Exeption during job 2  starting !";
+        }
+    }
+
+    @RequestMapping("/start3")
+    public String start3() {
+        try {
+            jobService.startJob3();
+            return "Job 3 Started !";
+        } catch (Exception e) {
+            return "Exeption during job 3  starting !";
         }
     }
 }
