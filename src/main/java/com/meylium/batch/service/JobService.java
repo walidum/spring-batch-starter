@@ -18,7 +18,7 @@ public class JobService {
     private final Job job2;
     private final Job job3;
 
-    public JobService(JobLauncher jobLauncher, @Qualifier("Job1") Job job1, @Qualifier("Job2") Job job2, @Qualifier("Job3") Job job3) {
+    public JobService(JobLauncher jobLauncher, @Qualifier("batch1.job1") Job job1, @Qualifier("batch1.job2") Job job2, @Qualifier("batch1.job3") Job job3) {
         this.jobLauncher = jobLauncher;
         this.job1 = job1;
         this.job2 = job2;

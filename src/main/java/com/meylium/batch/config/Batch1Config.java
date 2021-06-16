@@ -16,16 +16,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class BatchConfig {
+public class Batch1Config {
     public final JobBuilderFactory jobBuilderFactory;
     public final StepBuilderFactory stepBuilderFactory;
 
-    public BatchConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+    public Batch1Config(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
-    @Bean
+    @Bean(name = "batch1.job1")
     public Job Job1() {
         return jobBuilderFactory.get("Job1")
                 .incrementer(new RunIdIncrementer())
@@ -34,7 +34,7 @@ public class BatchConfig {
                 .end().build();
     }
 
-    @Bean
+    @Bean(name = "batch1.job2")
     public Job Job2() {
         return jobBuilderFactory.get("Job2")
                 .incrementer(new RunIdIncrementer())
@@ -43,7 +43,7 @@ public class BatchConfig {
                 .build();
     }
 
-    @Bean
+    @Bean(name = "batch1.job3")
     Job Job3() {
         return this.jobBuilderFactory
                 .get("job3")
