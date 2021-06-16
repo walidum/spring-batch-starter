@@ -7,9 +7,9 @@ import org.springframework.batch.item.UnexpectedInputException;
 
 public class Reader2 implements ItemReader<String> {
     private String[] messages = {
-            "walidum.dev wbo",
-            "Welcome to Spring Batch Example wbo ",
-            "We use H2 Database for this example wbo"
+            "walidum.dev 2",
+            "Welcome to Spring Batch Example 2 ",
+            "I use H2 Database for this example 2"
     };
     private int count = 0;
 
