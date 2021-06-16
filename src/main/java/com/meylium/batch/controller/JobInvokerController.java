@@ -19,7 +19,7 @@ public class JobInvokerController {
             jobService.startJob1();
             return "Job 1 Started !";
         } catch (Exception e) {
-            return "Exeption during job 1 starting !";
+            return "Exception during job 1 starting !";
         }
     }
 
@@ -29,7 +29,7 @@ public class JobInvokerController {
             jobService.startJob2();
             return "Job 2 Started !";
         } catch (Exception e) {
-            return "Exeption during job 2  starting !";
+            return "Exception during job 2  starting !";
         }
     }
 
@@ -39,7 +39,7 @@ public class JobInvokerController {
             jobService.startJob3();
             return "Job 3 Started !";
         } catch (Exception e) {
-            return "Exeption during job 3  starting !";
+            return "Exception during job 3  starting !";
         }
     }
 }
