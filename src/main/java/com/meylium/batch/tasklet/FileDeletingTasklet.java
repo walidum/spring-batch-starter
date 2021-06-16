@@ -6,26 +6,26 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 import java.io.File;
 
 public class FileDeletingTasklet implements Tasklet, InitializingBean {
-    private Resource directory;
+
 
     @Override
-
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        File dir = directory.getFile();
+        String currentUsersHomeDir = System.getProperty("user.home");
+        String otherFolder = currentUsersHomeDir + File.separator + "spring-batch";
+
+        File dir = new File(otherFolder);
         Assert.state(dir.isDirectory());
 
         File[] files = dir.listFiles();
         for (int i = 0; i < files.length; i++) {
             boolean deleted = files[i].delete();
             if (!deleted) {
-                throw new UnexpectedJobExecutionException(
-                        "Could not delete file " + files[i].getPath());
+                throw new UnexpectedJobExecutionException("Could not delete file " + files[i].getPath());
             } else {
                 System.out.println(files[i].getPath() + " got deleted");
             }
@@ -35,14 +35,10 @@ public class FileDeletingTasklet implements Tasklet, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.notNull(directory, "directory must be set");
+        String currentUsersHomeDir = System.getProperty("user.home");
+        String otherFolder = currentUsersHomeDir + File.separator + "spring-batch";
+        File dir = new File(otherFolder);
+        Assert.notNull(dir, "directory must be set");
     }
 
-    public Resource getDirectory() {
-        return directory;
-    }
-
-    public void setDirectory(Resource directory) {
-        this.directory = directory;
-    }
 }

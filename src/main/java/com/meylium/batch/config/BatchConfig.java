@@ -71,7 +71,6 @@ public class BatchConfig {
                 .build();
     }
 
-
     @Bean
     Step Step3() {
         return this.stepBuilderFactory
